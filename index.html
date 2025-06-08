@@ -25,15 +25,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: 'Map data &copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Image overlay bounds (approximate for 300m x 300m)
-var imageUrl = 'padstow-aerial.jpg';  // This file must be in same folder as index.html
-var imageBounds = [
-  [50.528505, -4.950634],  // top-left (northwest corner)
-  [50.525803, -4.947934]   // bottom-right (southeast corner)
-];
-
-L.imageOverlay(imageUrl, imageBounds).addTo(map);
-
 // Example polygons (approximate locations)
 
 // Reception
