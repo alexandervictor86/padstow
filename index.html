@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Padstow Holiday Village Micro Map (Aerial)</title>
+  <title>Padstow Holiday Village Map</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
@@ -16,8 +16,8 @@
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script>
 
-// Initialize map
-var map = L.map('map').setView([50.527154, -4.949284], 20);
+// Initialize the map
+var map = L.map('map').setView([50.527154, -4.949284], 19);
 
 // Base tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -25,31 +25,69 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: 'Map data &copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Example polygons (approximate locations)
+// Data for polygons
+var features = [
+  {
+    name: "Reception",
+    coords: [[50.527164, -4.949294], [50.527164, -4.949274], [50.527144, -4.949274], [50.527144, -4.949294]],
+    color: "blue"
+  },
+  {
+    name: "Craftworks Secret Garden",
+    coords: [[50.527100, -4.949150], [50.527100, -4.949130], [50.527080, -4.949130], [50.527080, -4.949150]],
+    color: "green"
+  },
+  {
+    name: "Bug B&B",
+    coords: [[50.527130, -4.949100], [50.527130, -4.949080], [50.527110, -4.949080], [50.527110, -4.949100]],
+    color: "brown"
+  },
+  {
+    name: "Lodge 1",
+    coords: [[50.527220, -4.949200], [50.527220, -4.949180], [50.527200, -4.949180], [50.527200, -4.949200]],
+    color: "red"
+  },
+  {
+    name: "Lodge 2",
+    coords: [[50.527220, -4.949160], [50.527220, -4.949140], [50.527200, -4.949140], [50.527200, -4.949160]],
+    color: "red"
+  },
+  {
+    name: "Lodge 3",
+    coords: [[50.527220, -4.949120], [50.527220, -4.949100], [50.527200, -4.949100], [50.527200, -4.949120]],
+    color: "red"
+  },
+  {
+    name: "Lodge 4",
+    coords: [[50.527220, -4.949080], [50.527220, -4.949060], [50.527200, -4.949060], [50.527200, -4.949080]],
+    color: "red"
+  },
+  {
+    name: "Lodge 5",
+    coords: [[50.527220, -4.949040], [50.527220, -4.949020], [50.527200, -4.949020], [50.527200, -4.949040]],
+    color: "red"
+  }
+];
 
-// Reception
-L.polygon([
-  [50.527164, -4.949294],
-  [50.527164, -4.949274],
-  [50.527144, -4.949274],
-  [50.527144, -4.949294]
-], {color: 'blue'}).addTo(map).bindPopup("Reception");
+// Load external JSON data
+fetch('lodge-data.json')
+  .then(response => response.json())
+  .then(data => {
+    features.forEach(function(feature) {
+      var polygon = L.polygon(feature.coords, { color: feature.color }).addTo(map);
+      var popupContent = "<b>" + feature.name + "</b>";
 
-// Lodge 1 (example)
-L.polygon([
-  [50.527220, -4.949200],
-  [50.527220, -4.949180],
-  [50.527200, -4.949180],
-  [50.527200, -4.949200]
-], {color: 'red'}).addTo(map).bindPopup("Lodge 1");
+      if (data[feature.name]) {
+        var lodge = data[feature.name];
+        if (lodge.type) popupContent += "<br>Type: " + lodge.type;
+        if (lodge.bedrooms) popupContent += "<br>Bedrooms: " + lodge.bedrooms;
+        if (lodge.occupancy) popupContent += "<br>Occupancy: " + lodge.occupancy;
+        if (lodge.description) popupContent += "<br>" + lodge.description;
+      }
 
-// Craftworks Secret Garden (example)
-L.polygon([
-  [50.527100, -4.949150],
-  [50.527100, -4.949130],
-  [50.527080, -4.949130],
-  [50.527080, -4.949150]
-], {color: 'green'}).addTo(map).bindPopup("Craftworks Secret Garden");
+      polygon.bindPopup(popupContent);
+    });
+  });
 
 </script>
 

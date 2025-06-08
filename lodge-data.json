@@ -1,0 +1,39 @@
+{
+  "Reception": {
+    "type": "Facility",
+    "description": "Main Reception, Shop & Enquiries"
+  },
+  "Craftworks Secret Garden": {
+    "type": "Restaurant",
+    "description": "On-site Restaurant & Dining"
+  },
+  "Bug B&B": {
+    "type": "Facility",
+    "description": "Insect habitat and ecological feature"
+  },
+  "Lodge 1": {
+    "type": "Luxury Lodge",
+    "bedrooms": 3,
+    "occupancy": 6
+  },
+  "Lodge 2": {
+    "type": "Holiday Home",
+    "bedrooms": 2,
+    "occupancy": 4
+  },
+  "Lodge 3": {
+    "type": "Luxury Lodge",
+    "bedrooms": 3,
+    "occupancy": 6
+  },
+  "Lodge 4": {
+    "type": "Holiday Home",
+    "bedrooms": 2,
+    "occupancy": 4
+  },
+  "Lodge 5": {
+    "type": "Luxury Lodge",
+    "bedrooms": 3,
+    "occupancy": 6
+  }
+}
